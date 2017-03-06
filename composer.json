@@ -1,6 +1,7 @@
 {
-    "name": "fa/symfony-adminlte-bootstrap",
-    "license": "proprietary",
+    "name": "eghojansu/symfony-adminlte-bootstrap",
+    "description": "symfony-adminlte-bootstrap",
+    "license": "MIT",
     "type": "project",
     "autoload": {
         "psr-4": {
