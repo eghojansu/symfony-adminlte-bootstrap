@@ -1,0 +1,52 @@
+<div class="clearfix">
+    <div class="pull-right">
+        {% if pagination.maxPages > 1 %}
+            {% set adjacent = 3 %}
+            {% set route = app.request.attributes.get('_route') %}
+            {% set start = pagination.currentPage <= adjacent ? 1 : pagination.currentPage - adjacent %}
+            {% set end = pagination.currentPage > pagination.maxPages - adjacent ? pagination.maxPages : pagination.currentPage + adjacent %}
+            {% set isFirstPage = pagination.currentPage <= 1 %}
+            {% set isMaxPage = pagination.currentPage >= pagination.maxPages %}
+            {% set previousPage = pagination.currentPage - 1 < 1 ? 1 : pagination.currentPage - 1 %}
+            {% set nextPage = pagination.currentPage + 1 <= pagination.maxPages ? pagination.currentPage + 1 : pagination.currentPage %}
+
+            <ul class="pagination pagination-sm" style="margin-bottom: 0">
+                <li {{ isFirstPage ? 'class="disabled"' }}>
+                    <a href="{{ isFirstPage ? '#' : path(route, {page: 1}) }}">&laquo;</a>
+                </li>
+
+                <li {{ isFirstPage ? 'class="disabled"' }}>
+                    <a href="{{ isFirstPage ? '#' : path(route, {page: previousPage}) }}">&lsaquo;</a>
+                </li>
+
+                {% if start > 1 %}
+                    <li class="disabled">
+                        <a style="cursor:default" href="#">&hellip;</a>
+                    </li>
+                {% endif %}
+
+                {% for i in start..end %}
+                <li {{ pagination.currentPage == i ? 'class="active"' }}>
+                    <a href="{{ path(route, {page: i}) }}">{{ i }}</a>
+                </li>
+                {% endfor %}
+
+                {% if end < pagination.maxPages %}
+                    <li class="disabled">
+                        <a style="cursor:default" href="#">&hellip;</a>
+                    </li>
+                {% endif %}
+
+                <li {{ isMaxPage ? 'class="disabled"' }}>
+                    <a href="{{ isMaxPage ? '#' : path(route, {page: nextPage}) }}">&rsaquo;</a>
+                </li>
+
+                <li {{ isMaxPage ? 'class="disabled"' }}>
+                    <a href="{{ isMaxPage ? '#' : path(route, {page: pagination.maxPages}) }}">&raquo;</a>
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+    <p>Displaying {{ pagination.inPageRecord ? pagination.firstNumber + 1 : 0}} - {{ pagination.firstNumber + pagination.inPageRecord }} of {{ pagination.totalRecord }} record</p>
+</div>
+

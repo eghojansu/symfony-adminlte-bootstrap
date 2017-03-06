@@ -1,0 +1,42 @@
+{% extends 'layout/dashboard.html.twig' %}
+
+{% set parent = 'Data Admin' %}
+
+{% block window_title %}
+    {{ title ~ ' | ' ~ parent }} |
+{% endblock %}
+
+{% block page_title %}
+    {{ parent }} <small>{{ title }}</small>
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+
+    <li><a href="{{ path('adm_admin') }}">{{ parent }}</a></li>
+    <li class="active">{{ title }}</li>
+{% endblock %}
+
+{% block content %}
+    <div class="box">
+        <div class="box-body">
+            {{ form_start(form) }}
+            {{ form_row(form.name, {'lr':24}) }}
+            {{ form_row(form.gender, {'lr':26}) }}
+            {{ form_row(form.birthplace, {'lr':23}) }}
+            {{ form_row(form.birthdate, {'lr':22}) }}
+            <hr>
+            {{ form_row(form.user.username, {'lr':22}) }}
+            {{ form_row(form.user.newPassword, {'lr':22}) }}
+            {{ form_row(form.user.active, {'lr':26}) }}
+            {{ form_row(form.user.locked, {'lr':26}) }}
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <button type="submit" class="btn btn-flat btn-primary">Save</button>
+                    <a href="{{ path('adm_admin') }}" class="btn btn-flat btn-default">Cancel</a>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

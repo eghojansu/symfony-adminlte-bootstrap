@@ -1,0 +1,13 @@
+parameters:
+    menu_admin:
+        dashboard:
+            label: Dashboard
+            icon: dashboard
+
+        adm_admin:
+            label: Data Admin
+            icon: user-circle
+
+        adm_setting:
+            label: Setting
+            icon: cog

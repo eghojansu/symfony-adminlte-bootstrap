@@ -1,0 +1,41 @@
+{% use 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block form_label -%}
+{% spaceless %}
+    {% set el = (lr is defined and lr|length > 0) ? 'col-sm-' ~ (lr|slice(0,1)) : block('form_label_class') %}
+    {% if label is not same as(false) -%}
+        {% if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif -%}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' ' ~ el ~ ' control-label')|trim}) %}
+        {% if label is empty -%}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</label>
+    {% else %}
+        <div class="{{ el }}"></div>
+    {%- endif -%}
+{% endspaceless %}
+{%- endblock form_label %}
+
+{% block form_row -%}
+    {% set er = (lr is defined and lr|length > 1) ? 'col-sm-' ~ (lr|slice(1)) : block('form_group_class') %}
+    <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+        {{- form_label(form) -}}
+        <div class="{{ er }}">
+            {{- form_widget(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    </div>
+{%- endblock form_row %}
+

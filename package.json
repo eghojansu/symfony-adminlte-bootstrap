@@ -1,0 +1,12 @@
+{
+  "name": "symfony-adminlte-bootstrap",
+  "devDependencies": {
+    "browser-sync": "^2.18.7",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-flatten": "^0.3.1",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^3.1.0",
+    "main-bower-files": "^2.13.1"
+  }
+}
