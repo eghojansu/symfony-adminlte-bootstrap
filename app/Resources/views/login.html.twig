@@ -24,7 +24,7 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg">{{ current_time|date('D, d M Y H:i:s (e)') }}</p>
 
     <div style="min-height: 70px; margin-bottom: 20px">
       {% if error is defined and error %}

@@ -42,7 +42,7 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <li class="dropdown user user-menu">
-            {% set avatar = avatar(app.user) %}
+            {% set avatar = app.user.avatar? path('avatar', {'file': app.user.avatar}) : asset('adminlte/img/user1-128x128.jpg') %}
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{ avatar }}" class="user-image" alt="User Image">
               <span class="hidden-xs">{{ app.user.username }}</span>

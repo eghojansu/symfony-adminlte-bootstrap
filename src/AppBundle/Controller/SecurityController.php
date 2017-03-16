@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Utils\Tools;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,6 +20,7 @@ class SecurityController extends Controller
         return $this->render('login.html.twig', [
             'last_username'=>$authenticationUtils->getLastUsername(),
             'error'=>$authenticationUtils->getLastAuthenticationError(),
+            'current_time'=>Tools::createDateTime(),
         ]);
     }
 }

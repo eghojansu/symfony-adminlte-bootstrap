@@ -16,18 +16,21 @@ class Config
     const STATUS_YES = 1;
     const STATUS_NO = 0;
     const PERPAGE = 10;
+    const DEFAULT_TIMEZONE = 'Asia/Jakarta';
 
-    protected static $genders = [
-        self::GENDER_MALE=>self::GENDER_MALE,
-        self::GENDER_FEMALE=>self::GENDER_FEMALE,
-    ];
-    protected static $actives = [
-        'Aktif'=>self::STATUS_ACTIVE,
-        'Tidak Aktif'=>self::STATUS_INACTIVE,
-    ];
-    protected static $yes = [
-        'Ya'=>self::STATUS_YES,
-        'Tidak'=>self::STATUS_NO,
+    protected static $list = [
+        'gender'=>[
+            self::GENDER_MALE=>self::GENDER_MALE,
+            self::GENDER_FEMALE=>self::GENDER_FEMALE,
+        ],
+        'active'=>[
+            'Aktif'=>self::STATUS_ACTIVE,
+            'Tidak Aktif'=>self::STATUS_INACTIVE,
+        ],
+        'yes'=>[
+            'Ya'=>self::STATUS_YES,
+            'Tidak'=>self::STATUS_NO,
+        ],
     ];
 
     protected $em;
@@ -63,29 +66,44 @@ class Config
         return $this->data;
     }
 
+    public static function getTimezone()
+    {
+        return self::DEFAULT_TIMEZONE;
+    }
+
+    public static function getList($var)
+    {
+        return array_key_exists($var, self::$list) ? self::$list[$var] : null;
+    }
+
+    public static function getLabel($var, $key)
+    {
+        return array_key_exists($var, self::$list) ? (array_key_exists($key, self::$list[$var])? self::$list[$var][$key]: null) : null;
+    }
+
     public static function getGenders()
     {
-        return static::$genders;
+        return self::$list['gender'];
     }
 
     public static function getActiveStatus()
     {
-        return static::$actives;
+        return self::$list['active'];
     }
 
     public static function getYesStatus()
     {
-        return static::$yes;
+        return self::$list['yes'];
     }
 
     public static function getYesLabel($var)
     {
-        return array_search($var, static::$yes);
+        return array_search($var, self::$list['yes']);
     }
 
     public static function getActiveLabel($var)
     {
-        return array_search($var, static::$actives);
+        return array_search($var, self::$list['active']);
     }
 
     public static function getConstantValue($var)

@@ -7,14 +7,12 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-    app.utils.string:
-        class: AppBundle\Utils\StringUtils
     app.utils.config:
         class: AppBundle\Utils\Config
         arguments: ["@doctrine.orm.default_entity_manager"]
-    app.twig_extension:
-        class: AppBundle\Twig\AppExtension
-        arguments: ["@request_stack", "@router"]
-        public: false
-        tags:
-            - { name: twig.extension }
+    # app.twig_extension:
+    #     class: AppBundle\Twig\AppExtension
+    #     arguments: ["@request_stack", "@router"]
+    #     public: false
+    #     tags:
+    #         - { name: twig.extension }

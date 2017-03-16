@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\Type\ProfileType;
+use AppBundle\Utils\Tools;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,7 +28,7 @@ class ProfileController extends Controller
             $avatar = $user->getAvatar();
             if ($avatar) {
                 $uploadDir = $this->get('kernel')->getUploadDir();
-                $fileName = $this->get('app.utils.string')->randomString(10).'.'.$avatar->guessExtension();
+                $fileName = Tools::randomString(10).'.'.$avatar->guessExtension();
                 $avatar->move($uploadDir, $fileName);
 
                 $user->setAvatar($fileName);
