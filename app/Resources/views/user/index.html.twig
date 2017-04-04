@@ -1,6 +1,6 @@
 {% extends 'layout/dashboard.html.twig' %}
 
-{% set title = 'Data Admin' %}
+{% set title = 'Data User' %}
 
 {% block window_title %}
     {{ title }} |
@@ -20,12 +20,12 @@
     <div class="box">
         <div class="box-header">
             <div class="btn-grup pull-right">
-                <a href="{{ path('adm_admin_create') }}" class="btn btn-flat btn-primary"><i class="fa fa-plus"></i> New Item</a>
+                <a href="{{ path('crd_user_create') }}" class="btn btn-flat btn-primary"><i class="fa fa-plus"></i> New Item</a>
             </div>
             <form class="form-inline form-search">
                 <div class="form-group">
-                    <label for="keyword" class="sr-only">Nama Admin</label>
-                    <input type="text" class="form-control" value="{{ keyword }}" name="keyword" placeholder="Nama Admin" data-provide="clearbutton">
+                    <label for="keyword" class="sr-only">Nama User</label>
+                    <input type="text" class="form-control" value="{{ keyword }}" name="keyword" placeholder="Nama User" data-provide="clearbutton">
                 </div>
                 <button type="submit" class="btn btn-flat btn-default"><i class="fa fa-search"></i></button>
             </form>
@@ -41,7 +41,7 @@
                         <th>Birthdate</th>
                         <th>Username</th>
                         <th>Active</th>
-                        <th>Locked</th>
+                        <th>Roles</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -57,12 +57,12 @@
                             <td>{{ item.birthdate|date }}</td>
                             <td>{{ item.user.username }}</td>
                             <td>{{ config.yesLabel(item.user.active) }}</td>
-                            <td>{{ config.yesLabel(item.user.locked) }}</td>
+                            <td>{{ item.user.roles|join(",") }}</td>
                             <td>
-                                <a href="{{ path('adm_admin_update', {'id': item.id }) }}" class="btn btn-flat btn-xs btn-warning">
+                                <a href="{{ path('crd_user_update', {'id': item.id }) }}" class="btn btn-flat btn-xs btn-warning">
                                     <i class="fa fa-edit"></i> Edit
                                 </a>
-                                <a href="{{ path('adm_admin_delete', {'id': item.id }) }}" class="btn btn-flat btn-xs btn-danger" data-action="delete">
+                                <a href="{{ path('crd_user_delete', {'id': item.id }) }}" class="btn btn-flat btn-xs btn-danger" data-action="delete">
                                     <i class="fa fa-trash"></i> Delete
                                 </a>
                             </td>

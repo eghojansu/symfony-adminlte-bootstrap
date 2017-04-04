@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Admin
+ * Profile
  *
- * @ORM\Table(name="admin")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AdminRepository")
+ * @ORM\Table(name="profile")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProfileRepository")
  */
-class Admin
+class Profile
 {
     /**
      * @var int
@@ -60,7 +60,7 @@ class Admin
     /**
      * @var User
      *
-     * @ORM\OneToOne(targetEntity="User", inversedBy="admin")
+     * @ORM\OneToOne(targetEntity="User", inversedBy="profile")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;

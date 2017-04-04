@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle\Controller\Admin;
+namespace AppBundle\Controller;
 
-use AppBundle\Entity\Admin;
-use AppBundle\Form\Type\AdminType;
+use AppBundle\Entity\Profile;
+use AppBundle\Form\Type\ProfileType;
 use AppBundle\Utils\Tools;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -11,36 +11,35 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class AdminController extends Controller
+class UserController extends Controller
 {
     /**
-     * @Route("/adm/admin", name="adm_admin")
+     * @Route("/admin-area/user", name="crd_user")
      * @Method({"GET"})
      */
     public function indexAction(Request $request)
     {
         $data = [];
 
-        $data['subset'] = $this->getDoctrine()->getRepository('AppBundle:Admin')->paginate($request);
+        $data['subset'] = $this->getDoctrine()->getRepository('AppBundle:Profile')->paginate($request, $this->getUser()->getProfile());
         $data['pagination'] = Tools::pagination($data['subset']);
         $data['keyword'] = $request->query->get('keyword');
 
-        return $this->render('admin/admin/index.html.twig', $data);
+        return $this->render('user/index.html.twig', $data);
     }
 
     /**
-     * @Route("/adm/admin/create", name="adm_admin_create")
+     * @Route("/admin-area/user/create", name="crd_user_create")
      * @Method({"GET","POST"})
      */
     public function createAction(Request $request)
     {
-        $admin = new Admin;
-        $form = $this->createForm(AdminType::class, $admin);
+        $admin = new Profile;
+        $form = $this->createForm(ProfileType::class, $admin);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $admin->getUser()->encodeNewPassword($this->get('security.password_encoder'));
-            $user->setRoles(['ROLE_ADMIN']);
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($admin);
             $em->persist($user);
@@ -48,24 +47,24 @@ class AdminController extends Controller
 
             $this->addFlash('success', 'Data has been saved');
 
-            return $this->redirectToRoute('adm_admin');
+            return $this->redirectToRoute('crd_user');
         }
 
-        return $this->render('admin/admin/form.html.twig', [
+        return $this->render('user/form.html.twig', [
             'form'=>$form->createView(),
             'title'=>'New Item',
-            'menu_active'=>'adm_admin',
+            'menu_active'=>'crd_user',
         ]);
     }
 
     /**
-     * @Route("/adm/admin/{id}/update", name="adm_admin_update")
+     * @Route("/admin-area/user/{id}/update", name="crd_user_update")
      * @Method({"GET","POST"})
-     * @ParamConverter("admin", class="AppBundle:Admin")
+     * @ParamConverter("admin", class="AppBundle:Profile")
      */
-    public function updateAction(Request $request, Admin $admin)
+    public function updateAction(Request $request, Profile $admin)
     {
-        $form = $this->createForm(AdminType::class, $admin);
+        $form = $this->createForm(ProfileType::class, $admin);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -76,22 +75,22 @@ class AdminController extends Controller
 
             $this->addFlash('success', 'Data has been saved');
 
-            return $this->redirectToRoute('adm_admin');
+            return $this->redirectToRoute('crd_user');
         }
 
-        return $this->render('admin/admin/form.html.twig', [
+        return $this->render('user/form.html.twig', [
             'form'=>$form->createView(),
             'title'=>'Edit #'.$admin->getName(),
-            'menu_active'=>'adm_admin',
+            'menu_active'=>'crd_user',
         ]);
     }
 
     /**
-     * @Route("/adm/admin/{id}/delete", name="adm_admin_delete")
+     * @Route("/admin-area/user/{id}/delete", name="crd_user_delete")
      * @Method({"DELETE"})
-     * @ParamConverter("admin", class="AppBundle:Admin")
+     * @ParamConverter("admin", class="AppBundle:Profile")
      */
-    public function deleteAction(Admin $admin)
+    public function deleteAction(Profile $admin)
     {
         $em = $this->getDoctrine()->getEntityManager();
         $em->remove($admin);

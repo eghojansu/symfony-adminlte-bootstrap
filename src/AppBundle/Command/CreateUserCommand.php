@@ -2,7 +2,7 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Entity\Admin;
+use AppBundle\Entity\Profile;
 use AppBundle\Entity\User;
 use AppBundle\Utils\Config;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -42,10 +42,10 @@ class CreateUserCommand extends ContainerAwareCommand
         $user
             ->setUsername($username)
             ->setPassword($encoder->encodePassword($user, $password))
-            ->setRoles(['ROLE_ADMIN'])
+            ->setRoles(['ROLE_SUPER_ADMIN'])
         ;
 
-        $admin = new Admin;
+        $admin = new Profile;
         $admin
             ->setName($username)
             ->setGender(Config::GENDER_MALE)

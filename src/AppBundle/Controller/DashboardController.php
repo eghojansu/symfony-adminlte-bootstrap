@@ -6,14 +6,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
+class DashboardController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/admin-area", name="dashboard")
      * @Method({"GET"})
      */
     public function indexAction()
     {
-        return $this->render('homepage.html.twig');
+        return $this->render('dashboard.html.twig');
     }
 }

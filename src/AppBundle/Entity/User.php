@@ -106,11 +106,11 @@ class User implements AdvancedUserInterface, \Serializable
     private $createdAt;
 
     /**
-     * @var Admin
+     * @var Profile
      *
-     * @ORM\OneToOne(targetEntity="Admin", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="Profile", mappedBy="user")
      */
-    private $admin;
+    private $profile;
 
     public function __construct()
     {
@@ -272,27 +272,27 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set admin
+     * Set profile
      *
-     * @param \AppBundle\Entity\Admin $admin
+     * @param \AppBundle\Entity\Profile $profile
      *
      * @return User
      */
-    public function setAdmin(\AppBundle\Entity\Admin $admin = null)
+    public function setProfile(\AppBundle\Entity\Profile $profile = null)
     {
-        $this->admin = $admin;
+        $this->profile = $profile;
 
         return $this;
     }
 
     /**
-     * Get admin
+     * Get profile
      *
-     * @return \AppBundle\Entity\Admin
+     * @return \AppBundle\Entity\Profile
      */
-    public function getAdmin()
+    public function getProfile()
     {
-        return $this->admin;
+        return $this->profile;
     }
 
     public function isAccountNonExpired()

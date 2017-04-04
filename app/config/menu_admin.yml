@@ -4,8 +4,8 @@ parameters:
             label: Dashboard
             icon: dashboard
 
-        adm_admin:
-            label: Data Admin
+        crd_user:
+            label: Data User
             icon: user-circle
 
         adm_setting:

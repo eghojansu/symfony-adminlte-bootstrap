@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\Type\ProfileType;
+use AppBundle\Form\Type\ProfileUpdateType;
 use AppBundle\Utils\Tools;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -12,14 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 class ProfileController extends Controller
 {
     /**
-     * @Route("/profile", name="profile")
+     * @Route("/safe-area/profile", name="profile")
      * @Method({"GET", "POST"})
      */
     public function updateAction(Request $request)
     {
         $user = $this->getUser();
         $oldAvatar = $user->getAvatar();
-        $form = $this->createForm(ProfileType::class, $user);
+        $form = $this->createForm(ProfileUpdateType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

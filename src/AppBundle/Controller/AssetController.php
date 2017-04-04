@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 class AssetController extends Controller
 {
     /**
-     * @Route("/avatar/{file}", name="avatar")
+     * @Route("/safe-area/avatar/{file}", name="avatar")
      * @Method({"GET"})
      */
     public function avatarAction($file)
